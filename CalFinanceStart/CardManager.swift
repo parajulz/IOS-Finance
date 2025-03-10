@@ -78,9 +78,19 @@ import SwiftUI
     ///   - maxCount: The maximum number of transactions to generate between 1 to ``maxCount``
     ///   - cardNumber: The associated card number that the transactions belong to.
     /// - Returns: An array of ``CFTransactions``.
+    ///
     private func generateTransactions(withMax maxCount: Int, for cardNumber: String) -> [CFTransaction] {
         // TODO: 1A. Implement generateTransactions
-        return []
+        let count = Int.random(in: 1...maxCount) // generate random number between 1 & maxcount
+        
+        return (0..<count).map { _ in
+            CFTransaction(
+                type: CFTransaction.CFTransactionType.allCases.randomElement()!,
+                changeAmount: Int.random(in: -10000...10000),
+                date: randomDateInRange(),
+                associatedCardNumber: cardNumber
+            )
+        }
     }
     
     /// Create and return a new card.

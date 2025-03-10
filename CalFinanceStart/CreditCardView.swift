@@ -46,8 +46,8 @@ struct CreditCardView: View {
         Text("DELETE ME")
     }
 }
-
-#Preview {
-    CreditCardView(card: CFCard(cardNumber: CardManager().createCreditCardNumber(), ownerName: "Johnny Appleseed", balance: 1000, transactions: []))
-        .padding()
-}
+//
+//#Preview {
+//    CreditCardView(card: CFCard(cardNumber: CardManager().createCreditCardNumber(), ownerName: "Johnny Appleseed", balance: 1000, transactions: []))
+//        .padding()
+//}
