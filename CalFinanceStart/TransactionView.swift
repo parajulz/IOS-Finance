@@ -1,7 +1,5 @@
 import SwiftUI
 
-/// View for a ``CFTransaction``. Shown as a list in ``MyCardsView``.
-/// - Each ``CFTransaction`` has three types: transfer, deposit, and purchase. Depending on the type, `TransactionView` will show the appropriate UI.
 struct TransactionView: View {
     var transaction: CFTransaction
     
@@ -10,8 +8,8 @@ struct TransactionView: View {
             VStack(alignment: .leading) {
                 Text(transaction.associatedCardNumber)
                     .font(.caption)
-                    .foregroundColor(.gray)
-                    .shadow(radius: 4) // Add this line for the shadow effect
+                    .foregroundColor(Color.gray)
+                    .shadow(radius: 4)
 
                 HStack {
                     RoundedRectangle(cornerRadius: 10)
@@ -35,24 +33,28 @@ struct TransactionView: View {
                     .foregroundColor(getTransactionAmountColor())
                 Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
                     .font(.subheadline)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.gray)
             }
             .padding(.trailing)
         }
         .padding()
         .background(Color(UIColor.systemBackground))
         .cornerRadius(10)
+        .overlay( // Hollow effect using the border
+                   RoundedRectangle(cornerRadius: 10)
+                       .stroke(Color(UIColor.separator), lineWidth: 1) // The border color
+               )
         .shadow(radius: 2)
     }
     
     private func getTransactionColor() -> Color {
         switch transaction.type {
         case .transfer:
-            return .green
+            return Color.green
         case .deposit:
-            return .gray
+            return Color.gray
         case .purchase:
-            return .red
+            return Color.red
         }
     }
     
@@ -70,11 +72,11 @@ struct TransactionView: View {
     private func getTransactionAmountColor() -> Color {
         switch transaction.type {
         case .transfer:
-            return .green
+            return Color.green
         case .deposit:
-            return .gray
+            return Color.gray
         case .purchase:
-            return .red
+            return Color.red
         }
     }
 }
