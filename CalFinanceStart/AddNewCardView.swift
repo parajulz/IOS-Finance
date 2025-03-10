@@ -46,12 +46,34 @@ struct AddNewCardView: View {
     
     private var addCreditCardButton: some View {
         // TODO: 3A. Implement addCreditCardButton
-        Text("DELETE ME")
+        Button(action: {
+                    let newCard = CFCard(cardNumber: cardNumber, ownerName: ownerName, balance: 0, transactions: [])
+                    cardManager.cards.insert(newCard, at: 0)
+                    dismiss()
+                }) {
+                    Text("Add Credit Card")
+                        .font(.title3)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
     }
     
     private var generateCreditCardNumberButton: some View {
         // TODO: 3B. Implement generateCreditCardNumberButton
-        Text("DELETE ME")
+        Button(action: {
+                    generateCreditCardNumber()
+                }) {
+                    Text("Generate Card Number")
+                        .font(.title3)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
     }
     
     private func generateCreditCardNumber() {

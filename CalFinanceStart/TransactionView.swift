@@ -1,10 +1,3 @@
-//
-//  TransactionView.swift
-//  CalFinance
-//
-//  Created by Justin Wong on 1/14/24.
-//
-
 import SwiftUI
 
 /// View for a ``CFTransaction``. Shown as a list in ``MyCardsView``.
@@ -13,17 +6,45 @@ struct TransactionView: View {
     var transaction: CFTransaction
     
     var body: some View {
-        // TODO: 4A. Implement TransactionView
-        Text("DELETE ME")
+        HStack {
+            VStack(alignment: .leading) {
+                Text(transaction.associatedCardNumber)
+                    .font(.caption)
+                    .foregroundColor(.gray)
+                    .shadow(radius: 4) // Add this line for the shadow effect
+
+                HStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(getTransactionColor().opacity(0.2))
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Image(systemName: getTransactionImageName())
+                                .foregroundColor(getTransactionColor())
+                                .font(.system(size: 24))
+                        )
+                    
+                    Text(String(describing: transaction.type).capitalized)
+                        .font(.headline)
+                }
+            }
+            Spacer()
+            
+            VStack(alignment: .trailing) {
+                Text("\(transaction.changeAmount >= 0 ? "+ " : "- ")$\(abs(transaction.changeAmount))")
+                    .font(.headline)
+                    .foregroundColor(getTransactionAmountColor())
+                Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+            }
+            .padding(.trailing)
+        }
+        .padding()
+        .background(Color(UIColor.systemBackground))
+        .cornerRadius(10)
+        .shadow(radius: 2)
     }
     
-    // MARK: - Helper Functions
-    
-    // Don't forget to use these functions!! They are indeed quite handy.
-    // 💡 TIP: To view these function's documentation in a more prettier way, <Option> click on the function names.
-    
-    /// For the current transaction, get the associated color. For example, if the transaction is of type `transfer`, &nbsp; `getTransactionColor()` returns `Color.green`.
-    /// - Returns: The associated transaction color.
     private func getTransactionColor() -> Color {
         switch transaction.type {
         case .transfer:
@@ -35,8 +56,6 @@ struct TransactionView: View {
         }
     }
     
-    /// For the current transaction, get the associated system SF Symbols image name which is a `String`. Use it with `Image`.
-    /// - Returns: The associated transaction SF Symbols image name.
     private func getTransactionImageName() -> String {
         switch transaction.type {
         case .transfer:
@@ -47,29 +66,15 @@ struct TransactionView: View {
             return "dollarsign.square.fill"
         }
     }
-}
-
-#Preview {
-    let cardManager = CardManager()
-    return VStack(alignment: .leading, spacing: 30) {
-        VStack(alignment: .leading){
-            Text("Purchase Transaction View:")
-                .bold()
-            TransactionView(transaction: CFTransaction(type: .purchase, changeAmount: -10000, date: Date(), associatedCardNumber: cardManager.createCreditCardNumber()))
-        }
-        
-        VStack(alignment: .leading) {
-            Text("Transfer Transaction View:")
-                .bold()
-            TransactionView(transaction: CFTransaction(type: .transfer, changeAmount: -10000, date: Date(), associatedCardNumber: cardManager.createCreditCardNumber()))
-        }
-        
-        VStack(alignment: .leading) {
-            Text("Deposit Transaction View:")
-                .bold()
-            TransactionView(transaction: CFTransaction(type: .deposit, changeAmount: -10000, date: Date(), associatedCardNumber: cardManager.createCreditCardNumber()))
+    
+    private func getTransactionAmountColor() -> Color {
+        switch transaction.type {
+        case .transfer:
+            return .green
+        case .deposit:
+            return .gray
+        case .purchase:
+            return .red
         }
     }
-    .padding()
 }
-

@@ -1,9 +1,3 @@
-//
-//  CardManager.swift
-//  CalFinance
-//
-//  Created by Justin Wong on 1/13/24.
-//
 
 import SwiftUI
 /// A class than manages all of the generation and tracking of cards and transactions as well as their respective logic.
@@ -80,13 +74,13 @@ import SwiftUI
     /// - Returns: An array of ``CFTransactions``.
     ///
     private func generateTransactions(withMax maxCount: Int, for cardNumber: String) -> [CFTransaction] {
-        // TODO: 1A. Implement generateTransactions
         let count = Int.random(in: 1...maxCount) // generate random number between 1 & maxcount
         
         return (0..<count).map { _ in
             CFTransaction(
                 type: CFTransaction.CFTransactionType.allCases.randomElement()!,
                 changeAmount: Int.random(in: -10000...10000),
+
                 date: randomDateInRange(),
                 associatedCardNumber: cardNumber
             )
@@ -100,25 +94,45 @@ import SwiftUI
     /// - Card's `transactions` uses a function in ``CardManager`` with maximum amount of `10` (already implemented)
     /// - Returns: A ``CFCard``.
     func createCard() -> CFCard {
-        // TODO: 1B. Implement createCard
-        return CFCard(cardNumber: "123455678", ownerName: "Oski", balance: 0, transactions: [])
+        let randomName = personNames.randomElement()!
+        let randomBalance = Int.random(in: -10000...10000)
+        
+        let randomTransactions = generateTransactions(withMax: 10, for: createCreditCardNumber())
+
+        return CFCard(
+            cardNumber: createCreditCardNumber(),
+            ownerName: randomName,
+            balance: randomBalance,
+            transactions: randomTransactions
+            )
     }
     
     /// Calculate the total balance across the given cards. For example, if there are 3 given cards with balances of -100, 50, and 200, `getTotalBalance` returns 150 (-100 + 50 + 200).
     /// - Returns: The total balance across all cards.
     func getTotalBalance(for cards: [CFCard]) -> Int {
-        // TODO: 1C. Implement getTotalBalance
-        return -1
+        return cards.reduce(0) { $0 + $1.balance }
     }
     
     /// Filters cards into two groups: those with positive and negative balances
     /// - Returns: A ``CFCardBalances`` struct with the appropriate initialized properites (`cardsWithPositiveBalances` & `cardsWithNegativeBalances`)
     func getCardsPositiveAndNegativeBalances() -> CFCardBalances {
-        // TODO: 1D. Implement getCardsPositiveAndNegativeBalances
-        return CFCardBalances(cardsWithPositiveBalances: [], cardsWithNegativeBalances: [])
+        let positiveCards = cards.filter { $0.balance > 0 }
+            let negativeCards = cards.filter { $0.balance < 0 }
+            
+            return CFCardBalances(
+                cardsWithPositiveBalances: positiveCards,
+                cardsWithNegativeBalances: negativeCards
+            )
     }
     
+    
+    
+    
+    
+    
+    
     // MARK: - <<<<<< END Task 1: Feeling Swifty
+    
     
     /// Given a card, remove it from CardManager.
     /// - Parameter cardToRemove: The card to be removed.

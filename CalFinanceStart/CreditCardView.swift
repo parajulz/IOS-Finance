@@ -1,10 +1,3 @@
-//
-//  CreditCardView.swift
-//  CalFinance
-//
-//  Created by Justin Wong on 1/14/24.
-//
-
 import SwiftUI
 
 /// View for a `CFCard` (BLOOOO credit card)
@@ -33,21 +26,36 @@ struct CreditCardView: View {
     
     private var headerSection: some View {
         // TODO: 2A. HeaderSection Walkthrough
-        Text("DELETE ME")
+        VStack(alignment: .leading, spacing: 10) {
+            Text("\(card.ownerName.capitalized)")
+              .font(.title2)
+          Text(card.cardNumber)
+            .font(.headline)
+        }
     }
     
     private var balanceSection: some View {
-        // TODO: 2B. Implement balanceSection
-        Text("DELETE ME")
+        VStack(alignment: .leading, spacing: 1) {            Text("Balance:")
+                .font(.headline)
+            Spacer()
+            Spacer()
+            Text("\(card.balance >= 0 ? "+" : "-") $\(abs(card.balance))")
+                .font(.title)
+                .bold()
+        }
     }
     
     private var visaSection: some View {
-        // TODO: 2C. Implement visaSection
-        Text("DELETE ME")
+        HStack {
+            Spacer()
+            Text("VISA").italic()
+                .font(.headline)
+        }
     }
+    
 }
-//
-//#Preview {
-//    CreditCardView(card: CFCard(cardNumber: CardManager().createCreditCardNumber(), ownerName: "Johnny Appleseed", balance: 1000, transactions: []))
-//        .padding()
-//}
+    
+    #Preview {
+        CreditCardView(card: CFCard(cardNumber: CardManager().createCreditCardNumber(), ownerName: "Johnny Appleseed", balance: 1000, transactions: []))
+            .padding()
+    }

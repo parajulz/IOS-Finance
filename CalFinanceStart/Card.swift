@@ -1,10 +1,3 @@
-//
-//  Card.swift
-//  CalFinance
-//
-//  Created by Justin Wong on 1/14/24.
-//
-
 import Foundation
 
 /// A struct representing what a credit card looks like.  Each `CFCard` contains an array of `CFTransactions`.

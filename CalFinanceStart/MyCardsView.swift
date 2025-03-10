@@ -78,7 +78,17 @@ struct TransactionListView: View {
             Spacer()
             
             // TODO: 5A. Implement the Transaction List
-            Text("DELETE ME")
+            ScrollView {
+                VStack(spacing: 10) {
+                    ForEach(cardManager.cards.flatMap { $0.transactions }, id: \.id) { transaction in
+                        TransactionView(transaction: transaction)
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                .fill(Color(.systemBackground))
+                                .shadow(radius: 10))
+                    }
+                }
+                .padding(.horizontal)
+            }
         }
     }
     
