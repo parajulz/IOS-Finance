@@ -33,14 +33,10 @@ Open the project in Xcode.
 
 Run on a simulator or real device (iOS 14+ recommended).
 
-📂 Project Structure
-graphql
-Copy
-Edit
 ios-finance-app/
-├── Models/           # Data models for users, cards, and transactions
-├── Views/            # SwiftUI views and components
-├── Resources/        # Assets and color themes
-└── iOSFinanceAppApp.swift
+├── Models/               # Data models for users, cards, and transactions
+├── Views/                # SwiftUI views and reusable UI components
+├── Resources/            # Assets, color themes, and fonts
+└── iOSFinanceAppApp.swift  # Main application entry point
 
 🧑‍💻 Created by Anuska — feel free to reach out or contribute!
