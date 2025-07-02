@@ -43,5 +43,4 @@ ios-finance-app/
 ├── Resources/        # Assets and color themes
 └── iOSFinanceAppApp.swift
 
-🧑‍💻 Author
-Created by Anuska — feel free to reach out or contribute!
+🧑‍💻 Created by Anuska — feel free to reach out or contribute!
